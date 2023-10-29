@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    
+    <div class="ligne flex flex-row grid grid-cols-5 gap-4">
+    {% for i in 1..300 %}
+            <div class="!z-5 relative flex flex-col rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px] bg-white undefined">
+                <div class="h-full w-full">
+                    <div class="relative w-full">
+                        <img src="https://lesplayersdudimanche.com/wp-content/uploads/2023/10/Super-Mario-Bros.-Wonder-cover.jpg" class="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full" alt="">
+                        <button class="absolute top-3 right-3 flex items-center justify-center rounded-full bg-white p-2 text-brand-500 hover:cursor-pointer">
+                            <div class="flex h-full w-full items-center justify-center rounded-full text-xl hover:bg-gray-50">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"></path></svg>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mb-3 flex items-center justify-between px-1 md:items-start">
+                        <div class="mb-2">
+                            <p class="text-lg font-bold text-navy-700"> Super Mario Bros. WONDER</p>
+                            <p class="mt-1 text-sm font-medium text-gray-600 md:mt-2">By Nintendo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+{% endblock %}
