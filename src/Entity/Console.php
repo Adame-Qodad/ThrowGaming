@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConsoleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class Console
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToMany(targetEntity: Jeu::class, mappedBy: 'consoles')]
+    private Collection $jeux;
+
+    public function __construct()
+    {
+        $this->jeux = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,33 @@ class Console
     public function setDate(?\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jeu>
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeu $jeux): static
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux->add($jeux);
+            $jeux->addConsole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeu $jeux): static
+    {
+        if ($this->jeux->removeElement($jeux)) {
+            $jeux->removeConsole($this);
+        }
 
         return $this;
     }

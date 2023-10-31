@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JeuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,20 @@ class Jeu
 
     #[ORM\Column]
     private ?float $ventes = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jeux')]
+    private ?Genre $genre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jeux')]
+    private ?Editeur $editeur = null;
+
+    #[ORM\ManyToMany(targetEntity: Console::class, inversedBy: 'jeux')]
+    private Collection $consoles;
+
+    public function __construct()
+    {
+        $this->consoles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +121,54 @@ class Jeu
     public function setVentes(float $ventes): static
     {
         $this->ventes = $ventes;
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): static
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getEditeur(): ?Editeur
+    {
+        return $this->editeur;
+    }
+
+    public function setEditeur(?Editeur $editeur): static
+    {
+        $this->editeur = $editeur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Console>
+     */
+    public function getConsoles(): Collection
+    {
+        return $this->consoles;
+    }
+
+    public function addConsole(Console $console): static
+    {
+        if (!$this->consoles->contains($console)) {
+            $this->consoles->add($console);
+        }
+
+        return $this;
+    }
+
+    public function removeConsole(Console $console): static
+    {
+        $this->consoles->removeElement($console);
 
         return $this;
     }
