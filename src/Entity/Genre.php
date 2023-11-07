@@ -21,6 +21,9 @@ class Genre
     #[ORM\OneToMany(mappedBy: 'genre', targetEntity: Jeu::class)]
     private Collection $jeux;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $couleur = null;
+
     public function __construct()
     {
         $this->jeux = new ArrayCollection();
@@ -69,6 +72,18 @@ class Genre
                 $jeux->setGenre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): static
+    {
+        $this->couleur = $couleur;
 
         return $this;
     }

@@ -24,12 +24,12 @@ class JeuRepository extends ServiceEntityRepository
    /**
     * @return Jeu[] Returns an array of Jeu objects
     */
-   public function findByGenre($value): array
+   public function findByGenre(string $value): array
    {
        return $this->createQueryBuilder('j')
            ->select('j', 'g')
            ->leftJoin('j.genre','g')
-           ->addWhere('j.genre = :val')
+           ->andWhere('g.libelle = :val')
            ->setParameter('val', $value)
            ->orderBy('j.titre','ASC')
            ->getQuery()

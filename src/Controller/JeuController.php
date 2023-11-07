@@ -14,18 +14,20 @@ class JeuController extends AbstractController
     #[Route('/jeu', name: 'app_jeu')]
     public function listeJeu(JeuRepository $repo): Response
     {
-        
+        $jeux = $repo->findAll();
         return $this->render('jeu/listeJeu.html.twig', [
             'controller_name' => 'JeuController',
+            'jeux' => $jeux,
         ]);
     }
 
     #[Route('/jeu/{genre}', name: 'app_jeu_filtre')]
-    public function listeJeuFiltre(JeuRepository $repo, Genre $genre): Response
+    public function listeJeuFiltre(JeuRepository $repo, string $genre): Response
     {
-        $jeux = $repo->findBy(array());
+        $jeux = $repo->findByGenre($genre);
         return $this->render('jeu/listeJeu.html.twig', [
             'controller_name' => 'JeuController',
+            'jeux' => $jeux,
         ]);
     }
 }
