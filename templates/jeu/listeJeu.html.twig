@@ -1,13 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Catalogue{% endblock %}
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    
-    <div class="ligne flex flex-row grid grid-cols-5 gap-4">
+{% block body %}    
+    <div class="ligne flex flex-row grid lg:grid-cols-5 sm:grid-cols-2 gap-4">
     {% for i in 1..300 %}
             <div class="!z-5 relative flex flex-col rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px] bg-white undefined">
                 <div class="h-full w-full">
