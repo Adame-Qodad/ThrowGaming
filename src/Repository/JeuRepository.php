@@ -21,6 +21,22 @@ class JeuRepository extends ServiceEntityRepository
         parent::__construct($registry, Jeu::class);
     }
 
+   /**
+    * @return Jeu[] Returns an array of Jeu objects
+    */
+   public function findByGenre($value): array
+   {
+       return $this->createQueryBuilder('j')
+           ->select('j', 'g')
+           ->leftJoin('j.genre','g')
+           ->addWhere('j.genre = :val')
+           ->setParameter('val', $value)
+           ->orderBy('j.titre','ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Jeu[] Returns an array of Jeu objects
 //     */
