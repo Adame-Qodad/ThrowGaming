@@ -4,8 +4,14 @@
 {% block body %}
 
     
-<h1 class="text-3xl font-black uppercase">Fiche du Jeu</h1>
+<h1 class="text-3xl mb-5">Fiche du Jeu</h1>
 
-
+<div>
+	<img src="https://lesplayersdudimanche.com/wp-content/uploads/2023/10/Super-Mario-Bros.-Wonder-cover.jpg"
+	class="rounded"
+	/>
+	<h1 class="text-2xl font-black">{{ jeu.titre }}</h1>
+	<span class="rounded text-white bg-{{ jeu.genre.couleur }}-500 py-1 px-2">{{ jeu.genre.libelle }}</span>
+</div>
 
 {% endblock %}
