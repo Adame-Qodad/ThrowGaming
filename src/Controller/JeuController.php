@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class JeuController extends AbstractController
 {
     #[Route('/jeu', name: 'app_jeu')]
-    public function listeJeu(JeuRepository $repo): Response
+   public function listeJeu(JeuRepository $repo): Response
     {
         $jeux = $repo->findAll();
         return $this->render('jeu/listeJeu.html.twig', [
@@ -28,6 +28,13 @@ class JeuController extends AbstractController
         return $this->render('jeu/listeJeu.html.twig', [
             'controller_name' => 'JeuController',
             'jeux' => $jeux,
+        ]);
+    }
+    #[Route('/ficheJeu', name: 'app_ficheJeu')]
+    public function ficheJeu(): Response
+    {
+        return $this->render('jeu/ficheJeu.html.twig', [
+            'controller_name' => 'JeuController',
         ]);
     }
 }
