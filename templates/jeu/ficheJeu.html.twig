@@ -10,22 +10,40 @@
 	{# bannière #}
 	<div class="w-full z-[-1] relative flex flex-col items-center">
 		<img src="https://lesplayersdudimanche.com/wp-content/uploads/2023/10/Super-Mario-Bros.-Wonder-cover.jpg"
-		class="rounded absolute top-0 w-full h-[10rem] object-cover contrast-125 saturate-125"
+		class="rounded absolute top-0 w-full lg:h-[20rem] sm:h-[10rem] object-cover contrast-125 saturate-125"
 		/>
-		<div class="absolute top-0 w-full h-[10rem] backdrop-blur-xl"></div>
+		<div class="absolute top-0 w-full lg:h-[20rem] sm:h-[10rem] backdrop-blur-xl"></div>
 	</div>
 	{# contenu #}
-	<div class="p-5 flex flex-col items-center">
+	<div class="p-5 flex flex-col gap-5 items-center">
 		{# image principale #}
 		<img src="https://lesplayersdudimanche.com/wp-content/uploads/2023/10/Super-Mario-Bros.-Wonder-cover.jpg"
 		class="rounded-md shadow-md sm:w-[320px] lg:w-[640px] text-center"
 		draggable="false"
 		/>
-		<h1 class="text-2xl font-black">{{ jeu.titre }}</h1>
-		<a class="inline-block rounded text-white bg-{{ jeu.genre.couleur }}-500 px-1"
-		href="{{ path('app_jeu_filtre', {'genre': jeu.genre.libelle}) }}">{{ jeu.genre.libelle }}</a>
-		
-		<button class="block rounded text-white bg-blue-600 hover:bg-blue-800 py-1 px-2">Ajouter au panier</button>
+		{# game info #}
+		<div class="w-full">
+			<h1 class="text-2xl font-black">{{ jeu.titre }}</h1>
+			<a href="#" class="text-gray-600 underline">{{ jeu.editeur.nom }}</a>
+			<a class="inline-block rounded text-white bg-{{ jeu.genre.couleur }}-400 px-1"
+			href="{{ path('app_jeu_filtre', {'genre': jeu.genre.libelle}) }}">{{ jeu.genre.libelle }}</a> <br>
+			<span class="text-gray-600">{{ jeu.ventes }} copies vendues</span>
+			{# description #}
+			<hr class="my-4">
+			<h3 class="font-bold text-md text-gray-600" style="font-variant: small-caps;">description</h3>
+			<p class="text-justify leading-relaxed">
+				Lorem ipsum dolor sit amet consectetur adipisicing, elit. Repellendus, itaque. Totam veniam atque asperiores distinctio, enim repellat explicabo fugiat, laboriosam, deserunt quas impedit illo? Eos dolorum aliquid voluptatum dignissimos ipsa?
+			</p>
+			<hr class="my-4">
+			{# menu achat #}
+			<div class="flex flex-row gap-3 items-baseline">
+				<a href="#" class="block text-center grow rounded text-white bg-indigo-600 hover:bg-indigo-800 py-1 px-2">Ajouter au panier</a>
+				<a href="#" class="block text-center grow rounded text-white bg-gray-700 hover:bg-gray-800 py-1 px-2">Ajouter à la wishlist</a>
+				<span class="inline-block rounded bg-black/20 py-1 px-2">
+				{{ jeu.prix|number_format(2, '.') }}€
+				</span>
+			</div>
+		</div>
 	</div>
 </div>
 

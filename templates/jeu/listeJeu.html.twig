@@ -20,7 +20,7 @@
                     <div class="mb-3 flex items-center justify-between px-1 md:items-start">
                         <div class="mb-2">
                            <a href="{{ path('app_ficheJeu', {'id': jeu.id}) }}"><p class="text-lg font-bold text-navy-700">{{ jeu.titre }}</p></a>
-                            <p class="text-gray-600">{{ jeu.prix|number_format(2, '.') }} €</p>
+                            <p class="text-gray-600">{{ jeu.prix|number_format(2, '.') }}€</p>
                             <p class="mt-1 text-sm font-medium text-gray-600 md:mt-2">By {{ editeur.nom }}</p>
                         </div>
                     </div>
