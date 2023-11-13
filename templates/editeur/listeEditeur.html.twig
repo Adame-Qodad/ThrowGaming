@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditeurController!{% endblock %}
+
+{% block body %}
+
+    <div class="ligne flex flex-row grid grid-cols-5 gap-4">
+    {% for i in 1..300 %}
+            <div class="!z-5 relative flex flex-col rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px] bg-white undefined">
+                <div class="h-full w-full">
+                    <div class="relative w-full">
+                        <img src="data:image/png;base64,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" class="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full" alt="">
+
+                    </div>
+                    <div class="mb-3 flex items-center justify-between px-1 md:items-start">
+                        <div class="mb-2">
+                            <p class="text-lg font-bold text-navy-700"> NINTENDO</p>
+                            <p class="mt-1 text-sm font-medium text-gray-600 md:mt-2">23 septembre 1889</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+
+
+
+{% endblock %}
