@@ -3,16 +3,30 @@
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-    <h1 class="text-2xl font-bold underline">Présentation du site</h1>
-    <p>
-    Ce site recense quelques jeux vidéo avec leurs plateformes et les éditeurs. On peut avoir plus d'informations sur chaque jeu avec une description complète, la date de sortie, le type de jeu etc...
-    </p>
-
     {# 
-        cette partie est à virer une fois qu'on sera en phase finale du projet.
-        on la remplacera par des statistiques (fausses ou vraies) sur le site.
+        prototype de barre de recherche.
+        une fois la recherche confirmée, le client est reidrigé vers
+        la liste des jeux filtrée.
     #}
-    <div class="flex flex-row flex-wrap lg:gap-x-5 sm:gap-y-5 lg:justify-between">
+    <form action="#" class="mb-5">
+        <input
+        class="border border-gray-400 rounded w-full py-2 px-1"
+        placeholder="Saisissez un nom/genre/..."
+        type="text">
+        {# <input type="submit" value="🔎"> #}
+    </form>
+
+    {# données sur le site #}
+    <h1 class="font-bold text-gray-600 text-xl">ThrowGaming en quelques nombres, c'est...</h1>
+    <div class="flex flex-col w-full p-3 rounded border border-gray-400 items-center justify-center">
+        <div><h1 class="text-4xl font-black">{{ cptJeux }} jeux</h1></div>
+        <div class="flex flex-row w-full items-center justify-center">
+            <div class="grow"><h1 class="text-4xl font-black">test</h1></div>
+            <div class="grow"><h1 class="text-4xl font-black">test</h1></div>
+        </div>
+    </div>
+
+{#     <div class="flex flex-row flex-wrap lg:gap-x-5 sm:gap-y-5 lg:justify-between">
         <div class="lg:max-w-sm sm:max-h-sm rounded overflow-hidden shadow-lg ">
             <img class="w-full" src="https://cdn.jobs.game/upload/éditeurs-jv.jpg" alt="Editeur">
             <div class="px-6 py-4">
@@ -40,5 +54,26 @@
                 </p>
             </div>
         </div>
+    </div> #}
+
+    {# liste des genres disponibles #}
+    <h1 class="font-bold text-gray-600 text-xl">Genres</h1>
+    <div class="flex flex-row gap-3 w-full overflow-x-scroll my-2">
+        {% for genre in genres %}
+            <a href="{{ path('app_jeu_filtre', {'genre': genre.libelle}) }}">
+                <div class="flex flex-col justify-center items-center h-[10rem] w-[10rem] p-x-10 p-y-10 bg-{{ genre.couleur }}-300 border-solid border border-{{ genre.couleur }}-500 rounded-[20px]">
+                    <h1 class="block text-2xl font-bold">{{ genre.libelle }}</h1>
+                    <h3 class="block text-lg text-black/50 font-bold">
+                    {% set nbJeux = genre.jeux|length %}
+                    {{ nbJeux }}
+                    {% if nbJeux > 1 %}
+                        jeux
+                    {% else %}
+                        jeu
+                    {% endif %}
+                    </h3>
+                </div>
+            </a>
+        {% endfor %}
     </div>
 {% endblock %}

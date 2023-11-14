@@ -37,6 +37,18 @@ class JeuRepository extends ServiceEntityRepository
        ;
    }
 
+   /**
+    * @return Jeu[] Returns game count
+    */
+   public function countAll(): array
+   {
+       return $this->createQueryBuilder('j')
+           ->select('COUNT(j)')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Jeu[] Returns an array of Jeu objects
 //     */
