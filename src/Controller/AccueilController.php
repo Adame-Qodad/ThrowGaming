@@ -17,7 +17,7 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(GenreRepository $gRep, JeuRepository $jRep): Response
     {
-        $genres = $gRep->findAll();
+        $genres = array_chunk($gRep->findAll(), 4);
         $cptJeux  = count($jRep->findAll());
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
