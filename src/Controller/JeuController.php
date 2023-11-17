@@ -30,11 +30,13 @@ class JeuController extends AbstractController
             'jeux' => $jeux,
         ]);
     }
-    #[Route('/ficheJeu', name: 'app_ficheJeu')]
-    public function ficheJeu(): Response
+
+    #[Route('/ficheJeu/{id}', name: 'app_ficheJeu')]
+    public function ficheJeu(Jeu $jeu): Response
     {
         return $this->render('jeu/ficheJeu.html.twig', [
             'controller_name' => 'JeuController',
+            'jeu' => $jeu,
         ]);
     }
 }
