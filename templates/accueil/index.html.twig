@@ -46,7 +46,7 @@
         <div class="flex flex-row gap-3 w-full overflow-x-scroll">
             {% for genre in genres %}
                 <a href="{{ path('app_jeu_filtre', {'genre': genre.libelle}) }}">
-                    <div class="flex flex-col justify-center items-center h-[10rem] w-[10rem] p-x-10 p-y-10 bg-{{ genre.couleur }}-300 border-solid border border-{{ genre.couleur }}-500 rounded-[20px]">
+                    <div class="flex flex-col justify-center items-center h-[10rem] w-[10rem] p-10 bg-{{ genre.couleur }}-300 border-solid border border-{{ genre.couleur }}-500 rounded-[20px]">
                         <h1 class="block text-2xl font-bold">{{ genre.libelle }}</h1>
                         <h3 class="block text-lg text-black/50 font-bold">
                         {% set nbJeux = genre.jeux|length %}
