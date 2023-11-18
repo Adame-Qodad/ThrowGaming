@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GenreController!{% endblock %}
+
+{# 
+    liste simple des genres
+#}
+
+{% block body %}
+    {# wrapper de la liste #}
+    <div class="grid grid-cols-3 gap-y-2">
+        {% for genre in genres %}
+            <div class="">{{ genre.id }}</div>
+            <div class="">{{ genre.libelle }}</div>
+            <div>
+                <div class="block width-[1rem] height-[1rem] bg-{{ genre.couleur }}-500"></div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
