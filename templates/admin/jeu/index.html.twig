@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Gestion Jeux{% endblock %}
+
+{% block body %}
+<div class="flex flex-col gap-2">
+    {% for jeu in jeux %}
+        <div class="flex flex-row gap-2 items-center p-2 border border-black/25 rounded-lg">
+            <span class="self-start">
+            {% if jeu.image == null %}
+                <svg height="32" width="32">
+                    <rect x="0" y="0" width="100%" height="100%" fill="gray" rx="5px" />
+                </svg>
+            {% else %}
+                <img src="{{ jeu.image }}" 
+                class="width-[32px] height-[32px] border border-black/25 rounded-[5px]" 
+                draggable="false" />
+            {% endif %}
+            </span>
+            <div class="flex flex-col w-full">
+                <div class="flex flex-row w-full gap-2">
+                    <span>{{ jeu.titre }}</span>
+                    <span class="px-3 border border-black/25 rounded-full text-sm text-gray-500">
+                    {{ jeu.genre.libelle }}</span>
+                </div>
+                <div class="flex flex-row w-full gap-2">
+                    <span>{{ jeu.prix|number_format(2, '.') }}€</span>
+                    <span>{{ jeu.ventes }} unités</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
