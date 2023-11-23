@@ -2,19 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome{% endblock %}</title>
+        <title>{% block title %}ThrowGaming{% endblock %}</title>
         <link rel="icon" href="https://avatars.githubusercontent.com/Cyb-3r">
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/css/main.ad49aa9b.css" />
     </head>
 
     <body class="m-0 flex flex-col gap-y-5 w-[100vw] h-[100vh]">
-        <header class="flex flex-row w-full justify-between h-[6rem] items-center px-10 bg-slate-400">
-            <h1 class="text-3xl font-black uppercase tracking-wide"><a href="{{path('app_accueil')}}">ThrowGaming</a></h1>
-            <nav class="flex flex-row gap-x-2">
-                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" href="{{path('app_jeu')}}">catalogue de jeu</a>
-                <a class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" href="#">consoles</a>
-                <a class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded" href="{{path('app_editeur')}}">editeur</a>
+       <header class="flex flex-row w-full h-[4rem] items-center px-10 border-b border-gray-400 shrink-0">
+            {# titre #}
+            <h1 class="text-2xl font-black uppercase tracking-wide"><a href="{{path('app_accueil')}}">ThrowGaming</a></h1>
+            <nav class="flex flex-row gap-x-10 grow">
+                {# pages #}
+                <div class="grow">
+                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_jeu')}}">catalogue de jeu</a>
+                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="#">consoles</a>
+                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="#">editeur</a>
+                </div>
+                {# login #}
+                <div class="flex justify-right">
+                    <a href="#">Se connecter / S'inscrire</a>
+                </div>
             </nav>
         </header>
 

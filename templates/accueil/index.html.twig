@@ -1,39 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-    <h1 class="text-3xl font-bold underline">
-        Présentation du site
-    </h1>
+    <h1 class="text-2xl font-bold underline">Présentation du site</h1>
+    <p>
+    Ce site recense quelques jeux vidéo avec leurs plateformes et les éditeurs. On peut avoir plus d'informations sur chaque jeu avec une description complète, la date de sortie, le type de jeu etc...
+    </p>
 
-    <div class="text-center">
-        <p>Ce site recense quelque jeu vidéo avec leurs plateformes et les éditeurs. Ont peut avoir plus d'information sur chaque jeu avec une description complète, la date de sortie, le type de jeu etc...</p>
-    </div>
-
-    <div class="ligne flex flex-row gap-x-5">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+    {# 
+        cette partie est à virer une fois qu'on sera en phase finale du projet.
+        on la remplacera par des statistiques (fausses ou vraies) sur le site.
+    #}
+    <div class="flex flex-row flex-wrap lg:gap-x-5 sm:gap-y-5 lg:justify-between">
+        <div class="lg:max-w-sm sm:max-h-sm rounded overflow-hidden shadow-lg ">
             <img class="w-full" src="https://cdn.jobs.game/upload/éditeurs-jv.jpg" alt="Editeur">
             <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2"><a href="">Les éditeurs</a></div>
+                <a class="block font-bold text-xl mb-2" href="#">Les éditeurs</a>
                 <p class="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                 </p>
             </div>
         </div>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+        <div class="lg:max-w-sm sm:max-h-sm rounded overflow-hidden shadow-lg ">
             <img class="w-full" src="https://i.jeuxactus.com/datas/divers/d/i/divers-jeux-video/xl/divers-jeux-video-artwor-5ec3efe21e0d1.jpg" alt="Jeu-Video">
             <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2"><a href="{{path('app_jeu')}}">Le catalogue de jeux-vidéo</a></div>
+                <a class="block font-bold text-xl mb-2" href="{{path('app_jeu')}}">Le catalogue de jeux-vidéo</a>
                 <p class="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                 </p>
             </div>
         </div>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+        <div class="lg:max-w-sm sm:max-h-sm rounded overflow-hidden shadow-lg ">
             <img class="w-full" src="https://www.afjv.com/2023/02/230213-jeux-video.jpg" alt="Console">
             <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2"><a href="">Les consoles</a></div>
+                <a class="block font-bold text-xl mb-2" href="#">Les consoles</a>
                 <p class="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                 </p>
