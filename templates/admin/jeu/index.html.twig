@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} - Gestion Jeux{% endblock %}
 
 {% block body %}
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 mb-5">
     {% for jeu in jeux %}
         <div class="flex flex-row gap-2 items-center p-2 border border-black/25 rounded-lg">
             <span class="self-start">
@@ -12,7 +12,7 @@
                     <rect x="0" y="0" width="100%" height="100%" fill="gray" rx="5px" />
                 </svg>
             {% else %}
-                <img src="{{ jeu.image }}" 
+                <img src="{{ jeu.image }}"
                 class="width-[32px] height-[32px] border border-black/25 rounded-[5px]" 
                 draggable="false" />
             {% endif %}
@@ -24,8 +24,16 @@
                     {{ jeu.genre.libelle }}</span>
                 </div>
                 <div class="flex flex-row w-full gap-2">
-                    <span>{{ jeu.prix|number_format(2, '.') }}€</span>
-                    <span>{{ jeu.ventes }} unités</span>
+                    <span>Prix : {{ jeu.prix|number_format(2, '.') }}€</span>
+                    <span>Ventes : {{ jeu.ventes }} unités</span>
+                    <span>Editeur : {{ jeu.editeur.nom }}</span>
+                </div>
+                <div class="flex flex-row w-full gap-2">
+                    <span>Plateforme : 
+                    {% for console in jeu.consoles %}
+                        {{ console.nom }}
+                    {% endfor %}
+                    </span>
                 </div>
             </div>
         </div>

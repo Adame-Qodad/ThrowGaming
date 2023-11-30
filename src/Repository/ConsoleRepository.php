@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Console;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Console>
@@ -20,6 +21,17 @@ class ConsoleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Console::class);
     }
+
+   /**
+    * @return Console[] Returns an array of Console objects
+    */
+   public function findAllQ(): Query
+   {
+       return $this->createQueryBuilder('c')
+           ->orderBy('c.id', 'ASC')
+           ->getQuery()
+       ;
+   }
 
 //    /**
 //     * @return Console[] Returns an array of Console objects
