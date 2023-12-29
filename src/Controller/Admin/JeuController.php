@@ -24,8 +24,8 @@ class JeuController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/jeu/{id}', name: 'app_admin_jeux_edit', methods: ["GET", "POST"])]
-    #[Route('/admin/jeu/', name: 'app_admin_jeux_ajout', methods: ["GET", "POST"])]
+    #[Route('/admin/jeu/{id}', name: 'app_admin_jeu_edit', methods: ["GET", "POST"])]
+    #[Route('/admin/jeu', name: 'app_admin_jeu_ajout', methods: ["GET", "POST"])]
     public function formulaire(?Jeu $jeu, Request $request, EntityManagerInterface $manager): Response
     {
         if ($jeu == null) {
@@ -44,5 +44,14 @@ class JeuController extends AbstractController
             'controller_name' => 'JeuController',
             'formJeu' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/jeu/suppr/{id}', name: 'app_admin_jeu_suppr')]
+    public function supprimer(Jeu $jeu, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($jeu);
+        $manager->flush();
+        $this->addFlash("success", "le jeu à bien été supprimé");
+        return $this->redirectToRoute('app_admin_jeux');
     }
 }

@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="flex flex-col gap-2 mb-5">
+    <a class="display-block p-1 my-2 bg-green-500 text-white rounded" href="{{path('app_admin_jeu_ajout')}}">Ajouter un jeu</a>
     {% for jeu in jeux %}
         <div class="flex flex-row gap-2 items-center p-2 border border-black/25 rounded-lg">
             <span class="self-start">
@@ -34,6 +35,10 @@
                         {{ console.nom }}
                     {% endfor %}
                     </span>
+                </div>
+                <div class="flex flex-row w-full gap-2">
+                    <a class="text-indigo-500 hover:underline" href="{{path('app_admin_jeu_edit', {'id': jeu.id})}}">Modifier</a> |
+                    <a class="text-indigo-500 hover:underline" href="{{path('app_admin_jeu_suppr', {'id': jeu.id})}}">Supprimer</a>
                 </div>
             </div>
         </div>
