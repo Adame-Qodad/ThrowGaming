@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GenreController!{% endblock %}
+{% block title %}{{ parent() }} - Formulaire Genre{% endblock %}
+
+{% block stylesheets %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Cybus/Documents/Websites/ThrowGaming/src/Controller/Admin/GenreController.php'|file_link(0) }}">src/Controller/Admin/GenreController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Cybus/Documents/Websites/ThrowGaming/templates/admin/genre/index.html.twig'|file_link(0) }}">templates/admin/genre/index.html.twig</a></code></li>
-    </ul>
+<h1>Formulaire Genres</h1>
+{{ form_start(formGenre) }}
+<div class="flex flex-col">
+    {{ form_row(formGenre.libelle, {'label' : "Libelle"}) }}
+    {{ form_row(formGenre.couleur, {'label' : "Couleur"}) }}
 </div>
+<input type="submit" class="btn btn-success" value="valider">
+{{ form_end(formGenre) }}
 {% endblock %}
