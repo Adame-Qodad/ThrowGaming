@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Editeurs{% endblock %}
+
+{% block body %}
+  <h1 class="text-3xl font-black uppercase">Liste des Editeurs</h1>
+
+  <div class="ligne flex flex-row grid grid-cols-5 gap-4">
+    {% for editeur in lesEditeurs %}
+      <div class="!z-5 relative flex flex-col rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px] bg-white undefined">
+        <div class="h-full w-full">
+          <div class="relative w-full">
+            
+            <img src="https://i.ytimg.com/vi/_DHq_NxEq8Q/maxresdefault.jpg" class="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full" alt="">
+          </div>
+          <div class="mb-3 flex items-center justify-between px-1 md:items-start">
+            <div class="mb-2">
+              
+              <p class="text-lg font-bold text-navy-700"><a href="{{ path('fiche_editeur', {'id': editeur.id}) }}">{{ editeur.nom }}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
