@@ -1,5 +1,4 @@
 {% set utilisateur = app.user %}
-{% set navbc = 'p-2 rounded border border-slate-300' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,25 +11,32 @@
 
     <body class="m-0 flex flex-col gap-y-5 w-[100vw] h-[100vh]">
        <header class="flex flex-row w-full h-[4rem] items-center px-10 border-b border-gray-400 shrink-0">
-            {# titre #}
-            <h1 class="text-2xl font-black uppercase tracking-wide"><a href="{{path('app_accueil')}}">ThrowGaming</a></h1>
-            <nav class="flex flex-row gap-x-10 grow">
-                {# pages #}
-                <div class="grow">
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_jeu')}}">catalogue de jeu</a>
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_console')}}">consoles</a>
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_editeur')}}">editeur</a>
-                </div>
-                {# login #}
-                <div class="flex gap-3 justify-right">
-                {% if utilisateur != null %}
-                    <a class="text-gray-500" href="{{path('app_login')}}"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
-                    <a class="text-gray-500" href="{{path('app_register')}}"><i class="fa-solid fa-user fa-xl"></i></a>
-                    <a class="text-gray-500" href="{{path('app_logout')}}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
-                {% else %}
-                    <a href="{{path('app_login')}}">Se connecter</a> /
-                    <a href="{{path('app_register')}}">S'inscrire</a>
-                {% endif %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{{path('app_accueil')}}">ThrowGaming</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_jeu')}}">les jeux</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_console')}}">les consoles</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_editeur')}}">les éditeurs</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 </div>
             </nav>
         </header>

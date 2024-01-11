@@ -8,20 +8,6 @@
     {% if utilisateur != null %}
         <h1 class="text-3xl font-black">Bienvenue {{utilisateur.prenom}}!</h1>
     {% endif %}
-    {# 
-        prototype de barre de recherche.
-        une fois la recherche confirmée, le client est reidrigé vers
-        la liste des jeux filtrée.
-    #}
-    <h1 class="font-bold text-gray-600 text-xl">Retrouvez vos jeux favoris rapidement</h1>
-    <form action="#">
-        <input
-        class="border border-gray-400 rounded w-full py-2 px-1"
-        placeholder="Saisissez un nom/genre/..."
-        type="text">
-        {# <input type="submit" value="🔎"> #}
-    </form>
-
     {# données sur le site #}
     <section class="mt-5">
         <h1 class="font-bold text-gray-600 text-xl">ThrowGaming en quelques nombres, c'est...</h1>
