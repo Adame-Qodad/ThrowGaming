@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Gestion Editeurs {% endblock %}
+
+{# 
+    liste simple des editeurs
+#}
+
+{% block body %}
+    {# wrapper de la liste #}
+    <h1>Gestion des editeurs</h1>
+    <a class="p-1 my-2 bg-green-500 text-white rounded" href="{{ path('app_admin_editeur_ajout') }}">
+        Ajouter
+    </a>
+    <div class="grid grid-cols-2 gap-x-10 gap-y-2 pt-2">
+        {% for editeur in editeurs %}
+            <div class = "flex flex-row justify-between gap-2 border border-gray-300 rounded p-3">
+                <span class="inline grow">
+                    <svg height="32" width="32" class="fill-{{editeur.logo}}-500">
+                        <rect x="0" y="0" width="100%" height="100%" rx="5px" />
+                    </svg>
+                    <span class="font-bold">{{ editeur.nom }}</span>
+                </span>
+                <span>
+                    <a class="bg-gray-300 rounded p-1 hover:bg-gray-200" href="{{path("app_admin_editeur_edit", {'id': editeur.id })}}">Modifier</a>
+                    <a class="bg-gray-300 rounded p-1 hover:bg-gray-200" href="{{path("app_admin_editeur_suppr", {'id': editeur.id })}}">Supprimer</a>
+                </span>
+            </div>            
+        {% endfor %}
+    </div>
+{% endblock %}

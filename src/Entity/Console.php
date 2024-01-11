@@ -75,12 +75,10 @@ class Console
     }
 
     /**
-     * @return Collection<int, Jeu>
-     */
-    public function getJeux(): Collection
-    {
-        return $this->jeux;
-    }
+     
+@return Collection<int, Jeu>*/
+  public function getJeux(): Collection{
+      return $this->jeux;}
 
     public function addJeux(Jeu $jeux): static
     {
