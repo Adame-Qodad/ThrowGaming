@@ -1,3 +1,5 @@
+{% set utilisateur = app.user %}
+{% set navbc = 'p-2 rounded border border-slate-300' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,8 +23,15 @@
                     <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_editeur')}}">editeur</a>
                 </div>
                 {# login #}
-                <div class="flex justify-right">
-                    <a href="#">Se connecter / S'inscrire</a>
+                <div class="flex gap-3 justify-right">
+                {% if utilisateur != null %}
+                    <a class="text-gray-500" href="{{path('app_login')}}"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
+                    <a class="text-gray-500" href="{{path('app_register')}}"><i class="fa-solid fa-user fa-xl"></i></a>
+                    <a class="text-gray-500" href="{{path('app_logout')}}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+                {% else %}
+                    <a href="{{path('app_login')}}">Se connecter</a> /
+                    <a href="{{path('app_register')}}">S'inscrire</a>
+                {% endif %}
                 </div>
             </nav>
         </header>
@@ -36,4 +45,5 @@
         </footer>
     </body>
     {% block javascripts %}{% endblock %}
+    <script src="https://kit.fontawesome.com/c79be7434a.js" crossorigin="anonymous"></script>
 </html>
