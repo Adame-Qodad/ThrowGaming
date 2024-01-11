@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche Jeu{% endblock %}
+{% block title %}Fiche Console{% endblock %}
 
 {% block body %}
 
 <h1 class="text-3xl mb-5">Fiche de la Console</h1>
 <div class="rounded-md shadow-lg overflow-hidden border border-gray-600/25">
 	<div class="p-5 flex flex-col gap-5 items-center">
-		<img src="https://accessoires-figurines.com/cdn/shop/products/SupportGameBoyColor_1200x1200.jpg?v=1672908003"
+		<img src="{{console.image}}"
 		class="rounded-md shadow-md sm:w-[320px] lg:w-[640px] text-center"
 		draggable="false"
 		/>
@@ -50,7 +50,7 @@
                     <a href="{{ path('app_ficheJeu', {'id': jeu.id}) }}">{{jeu.titre}}</a>
                 </th>
                 <td class="px-6 py-4">
-                    {{jeu.editeur.nom}}
+                    <a href="{{ path('fiche_editeur', {'id': jeu.editeur.id}) }}">{{jeu.editeur.nom}}</a>
                 </td>
                 <td class="px-6 py-4">
                     {{jeu.date }}
