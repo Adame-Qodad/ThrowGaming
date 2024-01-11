@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
+{% set utilisateur = app.user %}
 
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
+    {# accueil utilisateur #}
+    {% if utilisateur != null %}
+        <h1 class="text-3xl font-black">Bienvenue {{utilisateur.prenom}}!</h1>
+    {% endif %}
     {# 
         prototype de barre de recherche.
         une fois la recherche confirmée, le client est reidrigé vers
