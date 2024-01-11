@@ -22,8 +22,8 @@ class Console
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $date = null;
 
     #[ORM\ManyToMany(targetEntity: Jeu::class, mappedBy: 'consoles')]
     private Collection $jeux;
@@ -62,12 +62,12 @@ class Console
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?int
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): static
+    public function setDate(?int $date): static
     {
         $this->date = $date;
 
@@ -75,12 +75,10 @@ class Console
     }
 
     /**
-     * @return Collection<int, Jeu>
-     */
-    public function getJeux(): Collection
-    {
-        return $this->jeux;
-    }
+     
+@return Collection<int, Jeu>*/
+  public function getJeux(): Collection{
+      return $this->jeux;}
 
     public function addJeux(Jeu $jeux): static
     {
