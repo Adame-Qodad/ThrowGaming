@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EditeurController extends AbstractController
 {
-    #[Route('/admin/editeur', name: 'app_admin_editeur')]
+    #[Route('/admin/editeurs', name: 'app_admin_editeurs')]
     public function liste(EditeurRepository $repo): Response
     {
         $editeurs = $repo->findAll();
