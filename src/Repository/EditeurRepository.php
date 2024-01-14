@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Editeur;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Editeur>
@@ -24,7 +25,7 @@ class EditeurRepository extends ServiceEntityRepository
 //    /**
 //     * @return Editeur[] Returns an array of Editeur objects
 //     */
-//    public function findByExampleField($value): array
+//    public function findByExampleField($value): ?Query 
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')
@@ -32,7 +33,6 @@ class EditeurRepository extends ServiceEntityRepository
 //            ->orderBy('e.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
-//            ->getResult()
 //        ;
 //    }
 
