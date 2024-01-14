@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Jeu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Jeu>
@@ -46,6 +47,19 @@ class JeuRepository extends ServiceEntityRepository
            ->select('COUNT(j)')
            ->getQuery()
            ->getResult()
+       ;
+   }
+
+   /**
+    * @return Query Returns query
+    */
+   public function listePagine(): Query
+   {
+       return $this->createQueryBuilder('j')
+           ->select('j', 'c')
+           ->leftJoin('j.consoles', 'c')
+           ->orderBy('j.titre', 'ASC')
+           ->getQuery()
        ;
    }
 

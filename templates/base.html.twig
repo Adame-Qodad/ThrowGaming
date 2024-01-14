@@ -1,5 +1,4 @@
 {% set utilisateur = app.user %}
-{% set navbc = 'p-2 rounded border border-slate-300' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,34 +7,47 @@
         <link rel="icon" href="https://avatars.githubusercontent.com/Cyb-3r">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     </head>
 
     <body class="m-0 flex flex-col gap-y-5 w-[100vw] h-[100vh]">
        <header class="flex flex-row w-full h-[4rem] items-center px-10 border-b border-gray-400 shrink-0">
-            {# titre #}
-            <h1 class="text-2xl font-black uppercase tracking-wide"><a href="{{path('app_accueil')}}">ThrowGaming</a></h1>
-            <nav class="flex flex-row gap-x-10 grow">
-                {# pages #}
-                <div class="grow">
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_jeu')}}">catalogue de jeu</a>
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_console')}}">consoles</a>
-                    <a class="text-gray-500 ml-5 hover:text-blue-600" href="{{path('app_editeur')}}">editeur</a>
-                </div>
-                {# login #}
-                <div class="flex gap-3 justify-right">
-                {% if utilisateur != null %}
-                    <a class="text-gray-500" href="{{path('app_login')}}"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
-                    <a class="text-gray-500" href="{{path('app_register')}}"><i class="fa-solid fa-user fa-xl"></i></a>
-                    <a class="text-gray-500" href="{{path('app_logout')}}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
-                {% else %}
-                    <a href="{{path('app_login')}}">Se connecter</a> /
-                    <a href="{{path('app_register')}}">S'inscrire</a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{{path('app_accueil')}}">ThrowGaming</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_jeu')}}">les jeux</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_console')}}">les consoles</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_editeur')}}">les éditeurs</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <div class="ml-2 btn-group" role="group">
+                {% if utilisateur != null %} {# connecté #}
+                    <a class="btn btn-outline-secondary" href="{{path('app_user', {'id': utilisateur.id})}}"><i class="fa-solid fa-user fa-xl"></i> {{utilisateur.nom}} {{utilisateur.prenom}}</a>
+                    <a class="btn btn-outline-danger" href="{{path('app_logout')}}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+                {% else %} {# non connecté #}
+                    <a class="btn btn-outline-secondary" href="{{path('app_login')}}">Se connecter</a>
+                    <a class="btn btn-outline-secondary" href="{{path('app_register')}}">S'inscrire</a>
                 {% endif %}
+                </div>
                 </div>
             </nav>
         </header>
 
-        <main class="container mx-auto px-10">
+        <main class="container mx-auto px-10 mt-2">
             {% block body %}{% endblock %}
         </main>
 
@@ -45,7 +57,5 @@
     </body>
     {% block javascripts %}{% endblock %}
     <script src="https://kit.fontawesome.com/c79be7434a.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
 </html>

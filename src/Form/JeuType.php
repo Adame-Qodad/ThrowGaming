@@ -11,20 +11,16 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
+// verif
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 // relations
 use App\Entity\Genre;
-use App\Repository\GenreRepository;
 use App\Entity\Console;
-use App\Repository\ConsoleRepository;
 use App\Entity\Editeur;
-use App\Repository\EditeurRepository;
 
 class JeuType extends AbstractType
 {
@@ -32,36 +28,76 @@ class JeuType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un titre',
+                    ]),
+                ],
                 "attr"=>["placeholder"=>"Saisir le nom du jeu"],
                 "required"=>true
             ])
             ->add('prix', MoneyType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un prix',
+                    ]),
+                ],
                 "attr"=>["placeholder"=>"Saisir le prix du jeu"],
                 "currency"=>"EUR",
                 "required"=>true
             ])
             ->add('image', UrlType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une url vers une image',
+                    ]),
+                ],
                 "attr"=>["placeholder"=>"Url vers l'image du jeu"],
                 "required"=>false
             ])
             ->add('description', TextAreaType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une description',
+                    ]),
+                ],
                 "attr"=>["placeholder"=>"Description du jeu"],
                 "required"=>false
             ])
             ->add('date', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une date en format "AAAA"',
+                    ]),
+                ],
                 "required"=>true
             ])
             ->add('genre', EntityType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner un genre',
+                    ]),
+                ],
                 "class"=>Genre::class,
                 "choice_label"=>"libelle",
                 "required"=>true
             ])
             ->add('editeur', EntityType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner un editeur',
+                    ]),
+                ],
                 "class"=>Editeur::class,
                 "choice_label"=>"nom",
                 "required"=>true
             ])
             ->add('consoles', EntityType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner une ou des consoles',
+                    ]),
+                ],
                 "class"=>Console::class,
                 // "query_builder"=>function(ConsoleRepository $rep){
                 //     return $rep->findAllQ();

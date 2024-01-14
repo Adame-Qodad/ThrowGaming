@@ -15,43 +15,77 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
-    private $tInput = "w-full p-1 rounded border border-slate-300";
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nom', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre nom',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('prenom', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre prénom',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('adresse', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre adresse',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('ville', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre ville',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('cp', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre code postal',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('tel', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre numéro de téléphone',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('email', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre adresse email',
+                    ]),
+                ],
                 "attr"=>[
-                    "class"=>$this->tInput,
+                    "required"=>true,
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -72,11 +106,11 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrez un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'min' => 8,
+                        'minMessage' => 'Votre mot de passe doir comporter {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

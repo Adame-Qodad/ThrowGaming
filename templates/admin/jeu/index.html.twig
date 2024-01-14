@@ -3,45 +3,69 @@
 {% block title %}{{ parent() }} - Gestion Jeux{% endblock %}
 
 {% block body %}
-<div class="flex flex-col gap-2 mb-5">
-    <a class="display-block p-1 my-2 bg-green-500 text-white rounded" href="{{path('app_admin_jeu_ajout')}}">Ajouter un jeu</a>
+<h1>Gestion des jeux</h1>
+<a class="btn btn-success mb-2" href="{{path('app_admin_jeu_ajout')}}">Ajouter un jeu</a>
+<div class="d-flex flex-column gap-2 mb-5">
     {% for jeu in jeux %}
-        <div class="flex flex-row gap-2 items-center p-2 border border-black/25 rounded-lg">
-            <span class="self-start">
-            {% if jeu.image == null %}
-                <svg height="32" width="32">
-                    <rect x="0" y="0" width="100%" height="100%" fill="gray" rx="5px" />
-                </svg>
-            {% else %}
-                <img src="{{ jeu.image }}"
-                class="width-[32px] height-[32px] border border-black/25 rounded-[5px]" 
-                draggable="false" />
-            {% endif %}
-            </span>
-            <div class="flex flex-col w-full">
-                <div class="flex flex-row w-full gap-2">
+        <div class="d-flex gap-2 justify-items-center p-2 border rounded mb-2">
+            <div class="h-25 w-25 mr-4">
+
+                {% if jeu.image == null %}
+                    <svg height="100%" width="100%">
+                        <rect x="0" y="0" width="100%" height="100%" fill="#ddd" rx="5px" />
+                    </svg>
+                {% else %}
+                    <img src="{{ jeu.image }}"
+                    class="w-100 rounded" 
+                    draggable="false" />
+                {% endif %}
+
+            </div>
+            <div class="d-flex flex-column w-100">
+                <div class="d-flex w-100">
                     <span>{{ jeu.titre }}</span>
-                    <span class="px-3 border border-black/25 rounded-full text-sm text-gray-500">
+                    <span class="badge ml-2" style="background-color: {{jeu.genre.couleur}};">
                     {{ jeu.genre.libelle }}</span>
                 </div>
-                <div class="flex flex-row w-full gap-2">
+                <div class="d-flex w-100">
                     <span>Prix : {{ jeu.prix|number_format(2, '.') }}€</span>
-                    <span>Ventes : {{ jeu.ventes }} unités</span>
-                    <span>Editeur : {{ jeu.editeur.nom }}</span>
+                    <span class="ml-2">Ventes : {{ jeu.ventes }} unités</span>
+                    <span class="ml-2">Editeur : {{ jeu.editeur.nom }}</span>
                 </div>
-                <div class="flex flex-row w-full gap-2">
+                <div class="w-100 flex-fill">
                     <span>Plateforme : 
-                    {% for console in jeu.consoles %}
-                        {{ console.nom }}
-                    {% endfor %}
+                    {% if jeu.consoles | length != 0 %}
+                        {% for console in jeu.consoles %}
+                            {{ console.nom }}
+                        {% endfor %}
+                    {% else %}
+                        Aucune
+                    {% endif %}
                     </span>
                 </div>
-                <div class="flex flex-row w-full gap-2">
-                    <a class="text-indigo-500 hover:underline" href="{{path('app_admin_jeu_edit', {'id': jeu.id})}}">Modifier</a> |
-                    <a class="text-indigo-500 hover:underline" href="{{path('app_admin_jeu_suppr', {'id': jeu.id})}}">Supprimer</a>
+                <div class="w-100">
+                    <a class="btn btn-secondary" href="{{path('app_admin_jeu_edit', {'id': jeu.id})}}">Modifier</a>
+                    <a href='#' 
+                    data-toggle='modal' 
+                    data-target='#confirmSuppr'
+                    data-titre="Suppression d'un jeu"
+                    data-message="Êtes-vous sûr de vouloir supprimer le jeu : {{ jeu.titre }}"
+                    data-libelleConf="Supprimer"
+                    data-lien="{{ path('app_admin_jeu_suppr', {'id': jeu.id}) }}"
+                    class='btn btn-danger' 
+                    role='button'>Supprimer</a>  
                 </div>
             </div>
         </div>
     {% endfor %}
+    </div>
+        <div class="row justify-content-center">
+        <div class="navigation px-auto">
+        {{ knp_pagination_render(jeux) }}
+        </div>
+    </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    {% include "include/_modalSuppr.html.twig" %}
 {% endblock %}

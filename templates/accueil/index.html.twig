@@ -4,56 +4,38 @@
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-    {# accueil utilisateur #}
-    {% if utilisateur != null %}
-        <h1 class="text-3xl font-black">Bienvenue {{utilisateur.prenom}}!</h1>
-    {% endif %}
-    {# 
-        prototype de barre de recherche.
-        une fois la recherche confirmée, le client est reidrigé vers
-        la liste des jeux filtrée.
-    #}
-    <h1 class="font-bold text-gray-600 text-xl">Retrouvez vos jeux favoris rapidement</h1>
-    <form action="#">
-        <input
-        class="border border-gray-400 rounded w-full py-2 px-1"
-        placeholder="Saisissez un nom/genre/..."
-        type="text">
-        {# <input type="submit" value="🔎"> #}
-    </form>
-
     {# données sur le site #}
     <section class="mt-5">
-        <h1 class="font-bold text-gray-600 text-xl">ThrowGaming en quelques nombres, c'est...</h1>
-        <div class="flex flex-col gap-2 w-full items-center justify-center">
+        <h2>ThrowGaming en quelques nombres, c'est...</h2>
+        <div class="d-flex flex-wrap text-center" style="gap: 1rem;">
             {# une colone #}
-            <div class="flex items-center justify-center w-full h-[8rem] bg-gray-400/25 rounded-lg p-2 text-center">
-                <h1 class="text-4xl font-black">{{ cptJeux }} jeux différents</h1>
+            <div class="w-100 shadow rounded p-3">
+                <h2>{{ cptJeux }} jeux différents</h2>
             </div>
             {# deux colones #}
-            <div class="flex flex-row gap-2 w-full h-[8rem] items-center justify-center">
-                <div class="h-full flex items-center justify-center grow bg-gray-400/25 rounded-lg p-2">
-                    <h1 class="text-4xl font-black">{{ genres|length }} genres</h1>
+            <div class="w-100 d-flex" style="gap: 1rem;">
+                <div class="w-50 shadow rounded p-3">
+                    <h2>{{ genres|length }} genres</h2>
                 </div>
-                <div class="h-full flex items-center justify-center grow bg-gray-400/25 rounded-lg p-2">
-                    <h1 class="text-4xl font-black">{{ cptCons }} consoles</h1>
+                <div class="w-50 shadow rounded p-3">
+                    <h2>{{ cptCons }} consoles</h2>
                 </div>
             </div>
-            <div class="flex items-center justify-center w-full h-[8rem] bg-gray-400/25 rounded-lg p-2 text-center">
-                <h1 class="text-4xl font-black">{{ cptEdit }} éditeurs nous font confiance</h1>
+            <div class="w-100 shadow rounded p-3">
+                <h2>{{ cptEdit }} éditeurs nous font confiance</h2>
             </div>
         </div>
     </section>
 
     {# liste des genres disponibles #}
     <section class="mt-5">
-        <h1 class="font-bold text-gray-600 text-xl">Genres</h1>
-        <div class="flex flex-row gap-3 w-full overflow-x-scroll">
+        <h2>Genres</h2>
+        <div class="row">
             {% for genre in genres %}
-                <a href="{{ path('app_jeu_filtre', {'genre': genre.libelle}) }}">
-                    <div class="flex flex-col justify-center items-center h-[10rem] w-[10rem] p-10 bg-{{ genre.couleur }}-300 border-solid border border-{{ genre.couleur }}-500 rounded-[20px]">
-                        <h1 class="block text-2xl font-bold">{{ genre.libelle }}</h1>
-                        <h3 class="block text-lg text-black/50 font-bold">
+                <a class="col" style="min-width: 15rem;" href="{{ path('app_jeu_filtre', {'genre': genre.libelle}) }}">
+                    <div>
+                        <h3>{{ genre.libelle }}</h3>
+                        <h5>
                         {% set nbJeux = genre.jeux|length %}
                         {{ nbJeux }}
                         {% if nbJeux > 1 %}
@@ -61,7 +43,7 @@
                         {% else %}
                             jeu
                         {% endif %}
-                        </h3>
+                        </h5>
                     </div>
                 </a>
             {% endfor %}

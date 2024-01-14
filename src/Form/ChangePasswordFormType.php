@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChangePasswordFormType extends AbstractType
 {
-    private $tInput = "w-full p-1 rounded border border-slate-300";
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -21,7 +20,6 @@ class ChangePasswordFormType extends AbstractType
                 'options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'class'=>$this->tInput,
                     ],
                 ],
                 'first_options' => [
