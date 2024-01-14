@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Genre;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Genre>
@@ -22,13 +23,13 @@ class GenreRepository extends ServiceEntityRepository
     }
 
    /**
-    * @return Genre[] Returns an array of Genre objects
+    * @return Query Returns an array of Genre objects
     */
-   public function findAllQ(): Query
+   public function listePagine(): Query
    {
        return $this->createQueryBuilder('g')
-           ->orderBy('g.id', 'ASC')
-           ->getQuery()
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
        ;
    }
 

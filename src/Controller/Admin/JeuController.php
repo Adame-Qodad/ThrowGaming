@@ -6,6 +6,7 @@ use App\Repository\JeuRepository;
 use App\Entity\Jeu;
 use App\Form\JeuType;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +16,13 @@ use Doctrine\ORM\EntityManagerInterface;
 class JeuController extends AbstractController
 {
     #[Route('/admin/jeux', name: 'app_admin_jeux')]
-    public function liste(JeuRepository $repo): Response
+    public function liste(JeuRepository $repo, PaginatorInterface $p, Request $r): Response
     {
-        $jeux = $repo->findAll();
+        $jeux = $p->paginate(
+            $repo->listePagine(),
+            $r->query->getInt('page', 1),
+            6
+        );
         return $this->render('admin/jeu/index.html.twig', [
             'controller_name' => 'JeuController',
             'jeux' => $jeux,

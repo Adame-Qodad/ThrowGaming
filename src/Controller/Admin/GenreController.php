@@ -6,6 +6,7 @@ use App\Entity\Genre;
 use App\Repository\GenreRepository;
 use App\Form\GenreType;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +16,13 @@ use Doctrine\ORM\EntityManagerInterface;
 class GenreController extends AbstractController
 {
     #[Route('/admin/genres', name: 'app_admin_genres')]
-    public function liste(GenreRepository $repo): Response
+    public function liste(GenreRepository $repo, PaginatorInterface $p, Request $r): Response
     {
-        $genres = $repo->findAll();
+        $genres = $p->paginate(
+            $repo->listePagine(),
+            $r->query->getInt('page', 1),
+            6
+        );
         return $this->render('admin/genre/listeGenre.html.twig', [
             'controller_name' => 'GenreController',
             'genres' => $genres,
