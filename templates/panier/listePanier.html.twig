@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Panier{% endblock %}
+
+{% block body %}
+<h1>Panier</h1>
+    {% if panier|length == 0 %}
+        <p>Panier vide</p>
+    {% else %}
+        <ul class="list-group mb-2">
+        {% for jeu in panier %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <h5>{{jeu.titre}}</h5>
+                <a href='#' 
+                    data-toggle='modal' 
+                    data-target='#confirmSuppr'
+                    data-titre="Retirer du panier"
+                    data-message="Êtes-vous sûr de vouloir retirer ce jeu ?"
+                    data-libelleConf="Confirmer"
+                    data-lien="{{ path('app_panier_rem', {'id': jeu.id}) }}"
+                    class='btn btn-danger'
+                    role='button'><i class="fa-solid fa-minus"></i>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{{path('app_panier_validate')}}" class="btn btn-success">Valider le panier</a>
+    <a href="#" class="btn btn-danger">Vider le panier</a>
+{% endblock %}
+{% block javascripts %}
+    {% include "include/_modalSuppr.html.twig" %}
+{% endblock %}

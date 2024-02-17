@@ -43,9 +43,13 @@ class Jeu
     #[ORM\ManyToMany(targetEntity: Console::class, inversedBy: 'jeux')]
     private Collection $consoles;
 
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class, mappedBy: 'panier')]
+    private Collection $utilisateurs;
+
     public function __construct()
     {
         $this->consoles = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +173,33 @@ class Jeu
     public function removeConsole(Console $console): static
     {
         $this->consoles->removeElement($console);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Utilisateur>
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): static
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->add($utilisateur);
+            $utilisateur->addPanier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): static
+    {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
+            $utilisateur->removePanier($this);
+        }
 
         return $this;
     }

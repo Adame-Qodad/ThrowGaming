@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class JeuController extends AbstractController
 {
@@ -43,5 +44,59 @@ class JeuController extends AbstractController
             'controller_name' => 'JeuController',
             'jeu' => $jeu,
         ]);
+    }
+    
+    // logique panier
+
+    #[Route('/panier', name: 'app_panier')]
+    public function showPanier(): Response
+    {
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+        dump($u->getPanier());
+        return $this->render('panier/listePanier.html.twig', [
+            'controller_name' => 'JeuController',
+            'panier' => $u->getPanier(),
+        ]);
+    }
+    
+    #[Route('/panier/ajouter/{id}', name: 'app_panier_add')]
+    public function addJeu(Jeu $jeu, EntityManagerInterface $manager): Response
+    {
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+        foreach ($u->getPanier() as $j) {
+            // le jeu est déjà dans le panier
+            if ($j == $jeu) { return $this->redirectToRoute('app_jeu'); }
+        }
+        $u->addPanier($jeu);
+        $manager->persist($u);
+        $manager->flush();
+        return $this->redirectToRoute('app_jeu');
+    }
+    
+    #[Route('/panier/retirer/{id}', name: 'app_panier_rem')]
+    public function remJeu(Jeu $jeu, EntityManagerInterface $manager): Response
+    {
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+        // foreach ($u->getPanier() as $j) {
+        //     // le jeu est déjà dans le panier
+        //     if ($j == $jeu) { return $this->redirectToRoute('app_jeu'); }
+        // }
+        $u->removePanier($jeu);
+        $manager->persist($u);
+        $manager->flush();
+        return $this->redirectToRoute('app_panier');
+    }
+    
+    #[Route('/panier/confirmer', name: 'app_panier_validate')]
+    public function validPanier(): Response
+    {
+        //** @todo implémenter la librairie de l'utilisateur */
+        $this->redirectToRoute('app_accueil');
     }
 }
