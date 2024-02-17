@@ -37,6 +37,7 @@
                 <div class="ml-2 btn-group" role="group">
                 {% if utilisateur != null %} {# connecté #}
                     <a class="btn btn-outline-secondary" href="{{path('app_user', {'id': utilisateur.id})}}"><i class="fa-solid fa-user fa-xl"></i> {{utilisateur.nom}} {{utilisateur.prenom}}</a>
+                    <a href="{{path('app_panier')}}" class="btn btn-outline-secondary"><i class="fa-solid fa-cart-shopping"></i></a>
                     <a class="btn btn-outline-danger" href="{{path('app_logout')}}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
                 {% else %} {# non connecté #}
                     <a class="btn btn-outline-secondary" href="{{path('app_login')}}">Se connecter</a>
