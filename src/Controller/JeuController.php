@@ -54,8 +54,7 @@ class JeuController extends AbstractController
         $u = $this->getUser();
         // il faut être connecté pour ajouter un jeu à son panier
         if ($u == null) { return $this->redirectToRoute('app_jeu'); }
-        dump($u->getPanier());
-        return $this->render('panier/listePanier.html.twig', [
+        return $this->render('jeu/panier/listePanier.html.twig', [
             'controller_name' => 'JeuController',
             'panier' => $u->getPanier(),
         ]);
@@ -94,9 +93,41 @@ class JeuController extends AbstractController
     }
     
     #[Route('/panier/confirmer', name: 'app_panier_validate')]
-    public function validPanier(): Response
+    public function validPanier(EntityManagerInterface $manager): Response
     {
         //** @todo implémenter la librairie de l'utilisateur */
-        $this->redirectToRoute('app_accueil');
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+
+        // récup le panier et la librairie
+        $p = $u->getPanier();
+
+        // dump le panier dans la librairie
+        foreach($p as $jp) {
+            $u->addLibrairie($jp);
+        }
+
+        // vide le panier
+        $u->clearPanier();
+
+        $manager->persist($u);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_librairie');
+    }
+    
+    #[Route('/librairie', name: 'app_librairie')]
+    public function showLibrairie(): Response
+    {
+        //** @todo implémenter la librairie de l'utilisateur */
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+
+        return $this->render('jeu/librairie/listeLibrairie.html.twig', [
+            'controller_name' => 'JeuController',
+            'librairie' => $u->getLibrairie(),
+        ]);
     }
 }

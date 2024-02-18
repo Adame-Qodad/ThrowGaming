@@ -58,9 +58,13 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Jeu::class, inversedBy: 'utilisateurs')]
     private Collection $panier;
 
+    #[ORM\ManyToMany(targetEntity: Jeu::class, inversedBy: 'possesseurs')]
+    private Collection $librairie;
+
     public function __construct()
     {
         $this->panier = new ArrayCollection();
+        $this->librairie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -268,6 +272,37 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function removePanier(Jeu $panier): static
     {
         $this->panier->removeElement($panier);
+
+        return $this;
+    }
+    
+    public function clearPanier(): static
+    {
+        $this->panier->clear();
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jeu>
+     */
+    public function getLibrairie(): Collection
+    {
+        return $this->librairie;
+    }
+
+    public function addLibrairie(Jeu $librairie): static
+    {
+        if (!$this->librairie->contains($librairie)) {
+            $this->librairie->add($librairie);
+        }
+
+        return $this;
+    }
+
+    public function removeLibrairie(Jeu $librairie): static
+    {
+        $this->librairie->removeElement($librairie);
 
         return $this;
     }
