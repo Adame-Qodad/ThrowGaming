@@ -5,23 +5,23 @@
 
 {% block body %}
     {# données sur le site #}
-    <section class="mt-5">
+    <section class="">
         <h2>ThrowGaming en quelques nombres, c'est...</h2>
         <div class="d-flex flex-wrap text-center" style="gap: 1rem;">
             {# une colone #}
-            <div class="w-100 shadow rounded p-3">
+            <div class="w-100 bg-light-subtle border shadow-sm rounded p-3">
                 <h2>{{ cptJeux }} jeux différents</h2>
             </div>
             {# deux colones #}
             <div class="w-100 d-flex" style="gap: 1rem;">
-                <div class="w-50 shadow rounded p-3">
+                <div class="w-50 bg-light-subtle border shadow-sm rounded p-3">
                     <h2>{{ genres|length }} genres</h2>
                 </div>
-                <div class="w-50 shadow rounded p-3">
+                <div class="w-50 bg-light-subtle border shadow-sm rounded p-3">
                     <h2>{{ cptCons }} consoles</h2>
                 </div>
             </div>
-            <div class="w-100 shadow rounded p-3">
+            <div class="w-100 bg-light-subtle border shadow-sm rounded p-3">
                 <h2>{{ cptEdit }} éditeurs nous font confiance</h2>
             </div>
         </div>

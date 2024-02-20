@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class JeuController extends AbstractController
 {
     #[Route('/jeux', name: 'app_jeu')]
-   public function listeJeu(JeuRepository $repo, PaginatorInterface $p, Request $r): Response
+    public function listeJeu(JeuRepository $repo, PaginatorInterface $p, Request $r): Response
     {
         $jeux = $p->paginate(
             $repo->listePagine(),
@@ -28,9 +28,14 @@ class JeuController extends AbstractController
     }
 
     #[Route('/jeu/{genre}', name: 'app_jeu_filtre')]
-    public function listeJeuFiltre(JeuRepository $repo, string $genre): Response
+    public function listeJeuFiltre(JeuRepository $repo, PaginatorInterface $p, Request $r, string $genre): Response
     {
-        $jeux = $repo->findByGenre($genre);
+        $jeux = $p->paginate(
+            $repo->findByGenreP($genre),
+            $r->query->getInt('page', 1),
+            6
+        );
+        dump($repo->findByGenreP($genre)->getSQL());
         return $this->render('jeu/listeJeu.html.twig', [
             'controller_name' => 'JeuController',
             'jeux' => $jeux,
@@ -39,10 +44,26 @@ class JeuController extends AbstractController
 
     #[Route('/ficheJeu/{id}', name: 'app_ficheJeu')]
     public function ficheJeu(Jeu $jeu): Response
-    {
+    {        
+        $u = $this->getUser();
+        $hasGame = false;
+        // si l'utilisateur dispose déjà du jeu dans sa bibli ou son panier
+        // alors il ne pourra pas en rajouter
+        if ($u) {
+            $l = $u->getLibrairie()->getJeux();
+            $p = $u->getPanier();
+            foreach($l as $jl) {
+                if ($jl == $jeu) {$hasGame = true;}
+            }
+            
+            foreach($p as $jp) {
+                if ($jp == $jeu) {$hasGame = true;}
+            }
+        }
         return $this->render('jeu/ficheJeu.html.twig', [
             'controller_name' => 'JeuController',
             'jeu' => $jeu,
+            'hasGame' => $hasGame,
         ]);
     }
     
@@ -54,8 +75,7 @@ class JeuController extends AbstractController
         $u = $this->getUser();
         // il faut être connecté pour ajouter un jeu à son panier
         if ($u == null) { return $this->redirectToRoute('app_jeu'); }
-        dump($u->getPanier());
-        return $this->render('panier/listePanier.html.twig', [
+        return $this->render('jeu/panier/listePanier.html.twig', [
             'controller_name' => 'JeuController',
             'panier' => $u->getPanier(),
         ]);
@@ -94,9 +114,61 @@ class JeuController extends AbstractController
     }
     
     #[Route('/panier/confirmer', name: 'app_panier_validate')]
-    public function validPanier(): Response
+    public function validPanier(EntityManagerInterface $manager): Response
     {
         //** @todo implémenter la librairie de l'utilisateur */
-        $this->redirectToRoute('app_accueil');
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+
+        // récup le panier et la librairie
+        $p = $u->getPanier();
+
+        // dump le panier dans la librairie
+        foreach($p as $jp) {
+            $u->addLibrairie($jp);
+        }
+
+        // vide le panier
+        $u->clearPanier();
+
+        $manager->persist($u);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_librairie');
+    }
+    
+    #[Route('/panier/vider', name: 'app_panier_clear')]
+    public function clearPanier(EntityManagerInterface $manager): Response
+    {
+        //** @todo implémenter la librairie de l'utilisateur */
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null || empty($u->getpanier())) { return $this->redirectToRoute('app_jeu'); }
+
+        // vide le panier
+        $u->clearPanier();
+
+        $manager->persist($u);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_panier');
+    }
+    
+    // logique bibliothèque
+
+    #[Route('/librairie', name: 'app_librairie')]
+    public function showLibrairie(): Response
+    {
+        //** @todo implémenter la librairie de l'utilisateur */
+        $u = $this->getUser();
+        // il faut être connecté pour ajouter un jeu à son panier
+        if ($u == null) { return $this->redirectToRoute('app_jeu'); }
+        dump($u->getLibrairie());
+
+        return $this->render('jeu/librairie/listeLibrairie.html.twig', [
+            'controller_name' => 'JeuController',
+            'librairie' => $u->showLibrairie(),
+        ]);
     }
 }
