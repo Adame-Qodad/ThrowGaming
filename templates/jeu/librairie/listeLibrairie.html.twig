@@ -5,12 +5,14 @@
 {% block body %}
 <h1>Librairie</h1>
     {% if librairie|length == 0 %}
-        <p>Librairie vide</p>
+        <p class="text-secondary">Librairie vide</p>
     {% else %}
         <ul class="list-group mb-2">
         {% for jeu in librairie %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <h5>{{jeu.titre}}</h5>
+                <a href="{{ path('app_ficheJeu', {'id': jeu.id}) }}">
+                    <h5 class="mb-0">{{jeu.titre}}</h5>
+                </a>
             </li>
         {% endfor %}
         </ul>

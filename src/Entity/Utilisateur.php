@@ -58,9 +58,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Jeu::class, inversedBy: 'utilisateurs')]
     private Collection $panier;
 
-    #[ORM\ManyToMany(targetEntity: Jeu::class, inversedBy: 'possesseurs')]
-    private Collection $librairie;
-
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Librairie $librairie = null;
+    
     public function __construct()
     {
         $this->panier = new ArrayCollection();
@@ -283,26 +283,35 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Jeu>
-     */
-    public function getLibrairie(): Collection
+    public function getLibrairie(): ?Librairie
     {
         return $this->librairie;
     }
-
-    public function addLibrairie(Jeu $librairie): static
+    
+    public function showLibrairie(): ?Collection
     {
-        if (!$this->librairie->contains($librairie)) {
-            $this->librairie->add($librairie);
-        }
+        return $this->librairie->getJeux();
+    }
+
+    public function setLibrairie(?Librairie $librairie): static
+    {
+        $this->librairie = $librairie;
+
+        return $this;
+    }
+    
+    public function addLibrairie(?Jeu $jeu): static
+    {
+        if ($this->getLibrairie() == null) { $this->setLibrairie(new Librairie()); }
+        $this->librairie->addJeux($jeu);
 
         return $this;
     }
 
-    public function removeLibrairie(Jeu $librairie): static
+    public function remLibrairie(?Jeu $jeu): static
     {
-        $this->librairie->removeElement($librairie);
+        if ($this->getLibrairie() == null) { return $this; }
+        $this->librairie->removeJeux($jeu);
 
         return $this;
     }

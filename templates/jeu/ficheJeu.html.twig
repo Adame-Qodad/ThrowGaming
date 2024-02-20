@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "include/components.html.twig" as compos %}
 
 {% block title %}Fiche Jeu{% endblock %}
 
@@ -6,24 +7,25 @@
 
 <h1>Fiche du Jeu</h1>
 {# game card #}
-<div class="rounded shadow overflow-hidden border">
+<div class="container-fluid rounded shadow border d-flex flex-column gap-5 p-3">
 	{# contenu #}
-	<div class="p-5 d-flex flex-column gap-5 align-items-center">
+	{% if jeu.image != null %}
 		{# image principale #}
 		<img src="{{jeu.image}}"
 		class="img-thumbnail"
 		draggable="false"
 		/>
-		{# game info #}
-		<div class="w-100">
-			<h1>{{ jeu.titre }}</h1>
-			<a href="{{path('fiche_editeur', {'id':jeu.editeur.id})}}" class="text-gray-600 underline">{{ jeu.editeur.nom }}</a>
-			<a class="badge" style="background-color: {{jeu.genre.couleur}};"
-			href="{{ path('app_jeu_filtre', {'genre': jeu.genre.libelle}) }}">{{ jeu.genre.libelle }}</a> <br>
-			<span class="text-secondary">{{ jeu.ventes }} copies vendues</span>
-			{# description #}
-			<hr class="my-4">
-			<h3 class="text-secondary" style="font-variant: small-caps;">description</h3>
+	{% endif %}
+	
+	{# game info #}
+	<div class="w-100">
+		<h1>{{ jeu.titre }}</h1>
+		<a href="{{path('fiche_editeur', {'id':jeu.editeur.id})}}" class="text-secondary"><u>{{ jeu.editeur.nom }}</u></a>
+		{{ compos.tag(jeu.genre.libelle, jeu.genre.couleur) }} <br>
+		<span class="text-secondary">{{ jeu.ventes }} copies vendues</span>
+		{# description #}
+		<div class="bg-light border p-2 my-2 rounded">
+			<h5 class="text-secondary"><u>Description :</u></h5>
 			<p class="text-justify">
 				{% if jeu.description == null %}
 					Aucune description
@@ -31,15 +33,17 @@
 					{{jeu.description}}
 				{% endif %}
 			</p>
-			<hr class="my-4">
-			{# menu achat #}
-			<div class="d-flex gap-3 align-items-baseline">
-				<a href="{{path('app_panier_add', {'id': jeu.id})}}" class="btn btn-primary">Ajouter au panier</a>
-				{# <a href="#" class="block text-center grow rounded text-white bg-gray-700 hover:bg-gray-800 py-1 px-2">Ajouter à la wishlist</a> #}
-				<span class="badge bg-secondary">
+		</div>
+		{# menu achat #}
+		<div class="d-flex gap-2">
+			{% if hasGame %}
+				<button type="button" class="btn btn-success" disabled>Déjà possédé</button>
+			{% else %}
+				<a href="{{path('app_panier_add', {'id': jeu.id})}}" class="btn btn-success">Ajouter au panier</a>
+			{% endif %}
+			<span class="btn btn-light border">
 				{{ jeu.prix|number_format(2, '.') }}€
-				</span>
-			</div>
+			</span>
 		</div>
 	</div>
 </div>

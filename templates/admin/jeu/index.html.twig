@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "include/components.html.twig" as compos %}
 
 {% block title %}{{ parent() }} - Gestion Jeux{% endblock %}
 
@@ -22,10 +23,9 @@
 
             </div>
             <div class="d-flex flex-column w-100">
-                <div class="d-flex w-100">
-                    <span>{{ jeu.titre }}</span>
-                    <span class="badge ml-2" style="background-color: {{jeu.genre.couleur}};">
-                    {{ jeu.genre.libelle }}</span>
+                <div class="d-flex align-items-baseline w-100">
+                    <span class="mr-2">{{ jeu.titre }}</span>
+                    {{ compos.tag(jeu.genre.libelle, jeu.genre.couleur) }}
                 </div>
                 <div class="d-flex w-100">
                     <span>Prix : {{ jeu.prix|number_format(2, '.') }}€</span>

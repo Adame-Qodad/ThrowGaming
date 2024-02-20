@@ -46,7 +46,7 @@ class Jeu
     #[ORM\ManyToMany(targetEntity: Utilisateur::class, mappedBy: 'panier')]
     private Collection $utilisateurs;
 
-    #[ORM\ManyToMany(targetEntity: Utilisateur::class, mappedBy: 'librairie')]
+    #[ORM\ManyToMany(targetEntity: Librairie::class, mappedBy: 'jeux')]
     private Collection $possesseurs;
 
     public function __construct()
@@ -54,6 +54,7 @@ class Jeu
         $this->consoles = new ArrayCollection();
         $this->utilisateurs = new ArrayCollection();
         $this->possesseurs = new ArrayCollection();
+        $this->proprietaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,27 +210,27 @@ class Jeu
     }
 
     /**
-     * @return Collection<int, Utilisateur>
+     * @return Collection<int, Librairie>
      */
     public function getPossesseurs(): Collection
     {
         return $this->possesseurs;
     }
 
-    public function addPossesseur(Utilisateur $possesseur): static
+    public function addPossesseur(Librairie $possesseur): static
     {
         if (!$this->possesseurs->contains($possesseur)) {
             $this->possesseurs->add($possesseur);
-            $possesseur->addLibrairie($this);
+            $possesseur->addJeux($this);
         }
 
         return $this;
     }
 
-    public function removePossesseur(Utilisateur $possesseur): static
+    public function removePossesseur(Librairie $possesseur): static
     {
         if ($this->possesseurs->removeElement($possesseur)) {
-            $possesseur->removeLibrairie($this);
+            $possesseur->removeJeux($this);
         }
 
         return $this;

@@ -37,6 +37,18 @@ class JeuRepository extends ServiceEntityRepository
            ->getResult()
        ;
    }
+   
+   public function findByGenreP(string $value): Query
+   {
+       return $this->createQueryBuilder('j')
+           ->select('j', 'g')
+           ->leftJoin('j.genre','g')
+           ->andWhere('g.libelle = :val')
+           ->setParameter('val', $value)
+           ->orderBy('j.titre','ASC')
+           ->getQuery()
+       ;
+   }
 
    /**
     * @return Jeu[] Returns game count
@@ -56,8 +68,8 @@ class JeuRepository extends ServiceEntityRepository
    public function listePagine(): Query
    {
        return $this->createQueryBuilder('j')
-           ->select('j', 'c')
-           ->leftJoin('j.consoles', 'c')
+           ->select('j')
+           ->distinct()
            ->orderBy('j.titre', 'ASC')
            ->getQuery()
        ;
